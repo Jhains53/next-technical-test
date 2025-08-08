@@ -6,9 +6,30 @@
     padding: 16px;
 
     .title {
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        
+        p {
+            font-weight: 700;
+        }
+
+        button {
+            border-radius: 8px;
+			background: #212121;
+			padding: 4px 16px;
+            color: white;
+			border: none;
+            cursor: pointer;
+            border: 1px solid white;
+
+            &:hover {
+                background: white;
+                color: #212121;
+                border: 1px solid #212121;
+            }
+        }
     }
 
     .section {

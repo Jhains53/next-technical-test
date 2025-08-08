@@ -4,7 +4,7 @@ import ProductsList from '../ProductsList/ProductsList';
 import ShopingCart from '../ShopingCart/ShopingCart';
 import { GetProductListService } from '@/services/products.service';
 import IProducts from '@/interface/products';
-import { GetCartProductService } from '@/services/cart.service';
+import { cleanCartProductService, GetCartProductService } from '@/services/cart.service';
 
 import styles from './dashboard.module.scss';
 
@@ -30,6 +30,15 @@ export default function Dashboard() {
         }
     }
 
+    async function cleanCart() {
+        try {
+            cleanCartProductService();
+            fetchCart();
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
         useEffect(() => {
             fetchProducts();
             fetchCart();
@@ -37,7 +46,7 @@ export default function Dashboard() {
     return (
         <div className={styles.container}>
             <ProductsList products={products} onClick={fetchCart} />
-            <ShopingCart cartProducts={cartProducts} />
+            <ShopingCart cartProducts={cartProducts} onClick={cleanCart} />
         </div>
     );
 }

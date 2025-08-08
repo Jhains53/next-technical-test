@@ -15,3 +15,8 @@ export function addToCart(id: number): IProducts | null {
 export function getCart(): IProducts[] {
     return cart;
 }
+
+export function cleanCart(): IProducts[] {
+    cart.length = 0;
+    return cart;
+}

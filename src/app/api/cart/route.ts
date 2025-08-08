@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addToCardSchema, CartSchema } from '@/schemas/cart.schema';
-import { addToCart, getCart } from '@/functions/cart';
+import { addToCart, cleanCart, getCart } from '@/functions/cart';
 import { SafeParseReturnType } from 'zod';
 
 export async function GET() {
@@ -36,5 +36,10 @@ export async function POST(request: NextRequest) {
             { status: 500}
         );
     }
+}
+
+export async function PUT() {
+    const cart = cleanCart();
+    return NextResponse.json({ message: 'Se limpio el carrito' , results: cart },{ status: 200 } );
 }
 

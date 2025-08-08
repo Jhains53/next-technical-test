@@ -1,7 +1,7 @@
 'use clietn;'
 import { useState } from 'react';
 import IProducts from '@/interface/products';
-import { addCartProductService } from '@/services/addCartProduct.service';
+import { addCartProductService } from '@/services/cart.service';
 import XIcon from '../icons/XIcon';
 import findBestCombination from '@/functions/findBestCombination';
 
@@ -9,7 +9,7 @@ import styles from './products-list.module.scss';
 
 interface IProductsList {
     products: IProducts[];
-    onClick?: () => void;
+    onClick: () => void;
 }
 
 export default function ProductsList({ products, onClick }: IProductsList) {

@@ -12,3 +12,22 @@ export async function GetCartProductService(): Promise<IProducts[]> {
 
     return data.results;
 }
+
+export async function addCartProductService(id: number): Promise<Response> {
+    return await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: id })
+    });
+}
+
+export async function cleanCartProductService(): Promise<Response> {
+    return await fetch('/api/cart', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}

@@ -4,16 +4,28 @@ import styles from './shopin-cart.module.scss';
 
 interface IShopinCart {
     cartProducts: IProducts[];
+    onClick: () => void;
 }
 
-export default function ShopingCart({ cartProducts } : IShopinCart){
+export default function ShopingCart({ cartProducts, onClick } : IShopinCart){
+    const handleClick = () => {
+		if (onClick) {
+			onClick();
+		}
+	};
+
     const NotFound = () => {
         return <p>el carrito esta vacio</p>;
     } 
 
     return  (
         <div className={styles.contariner}>
-            <p className={styles.title}>{'Carrito de compras'}</p>
+            <div className={styles.title}>
+                <p>{'Carrito de compras'}</p>
+                <button onClick={() => {handleClick()}}>
+                    {'Limpiar'}
+                </button>
+            </div>
             <hr />
             <br />
             <div className={styles.section}>
