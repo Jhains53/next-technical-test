@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT() {
-    const cart = cleanCart();
-    return NextResponse.json({ message: 'Se limpio el carrito' , results: cart },{ status: 200 } );
+    cleanCart();
+    return NextResponse.json({ message: 'Se limpio el carrito'},{ status: 200 } );
 }
 

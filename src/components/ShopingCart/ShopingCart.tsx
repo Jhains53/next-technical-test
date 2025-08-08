@@ -36,7 +36,7 @@ export default function ShopingCart({ cartProducts, onClick } : IShopinCart){
             <hr />
             <br />
             <div className={styles.section}>
-                {cartProducts.length === 0? (<NotFound/>) : 
+                {!cartProducts? (<NotFound/>) : 
                 (<div className={styles.list}>
                 {cartProducts.map(
                     (
