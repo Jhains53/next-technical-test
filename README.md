@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto Fullstack con Next.js
 
-## Getting Started
+Este proyecto es una tienda básica de productos tecnológicos implementada con **Next.js (App Router)**. Incluye una API REST y un frontend que permite listar productos, agregarlos al carrito y visualizar la mejor combinación de productos bajo un presupuesto máximo.
 
-First, run the development server:
+---
+
+## Características
+
+### Backend (API)
+- **`GET /api/products`**: Retorna una lista fija de productos.
+- **`POST /api/cart`**: Recibe el ID de un producto y lo agrega al carrito (en memoria).
+- **`GET /api/cart`**: Devuelve los productos agregados al carrito.
+- **`PUT /api/cart`**: Limpia el Carrito.
+
+> Nota: No se usa base de datos, el carrito se gestiona en memoria.
+
+---
+
+### Frontend
+- Visualiza el listado de productos desde `/api/products`.
+- Permite agregar productos al carrito usando `/api/cart`.
+- Muestra el contenido actual del carrito.
+- Incluye una herramienta para calcular la mejor combinación de productos con un presupuesto dado.
+
+---
+
+## Instalación y ejecución
+
+### 1. Clona el repositorio
+
+```bash
+git clone https://github.com/tuusuario/next-technical-test.git
+cd next-technical-test
+```
+
+### 2. Instala las dependencias
+
+```bash
+npm install
+# o
+yarn install
+```
+
+### 3. Ejecuta el servidor de desarrollo
 
 ```bash
 npm run dev
-# or
+# o
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tecnologías usadas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js (App Router)
+- TypeScript
+- React
+- Zod (para validación de entradas)
+- CSS Modules
