@@ -1,7 +1,6 @@
 'use clietn;'
 import { useState } from 'react';
 import IProducts from '@/interface/products';
-import { addCartProductService } from '@/services/cart.service';
 import XIcon from '../icons/XIcon';
 import findBestCombination from '@/functions/findBestCombination';
 
@@ -9,17 +8,23 @@ import styles from './products-list.module.scss';
 
 interface IProductsList {
     products: IProducts[];
-    onClick: () => void;
+    onClick: (id: number) => void;
 }
 
 export default function ProductsList({ products, onClick }: IProductsList) {
     const [budget, setBudget] = useState<number>(0);
     const [combination, setCombination] = useState<IProducts[] | null>(null);
+    const [addingProductId, setAddingProductId] = useState<number | null>(null);
 
-    const handleClick = () => {
-		if (onClick) {
-			onClick();
-		}
+    const handleClick = async (id: number) => {
+		try {
+            setAddingProductId(id);
+            await onClick(id); 
+        } catch (error) {
+            console.log('Error al agregar:', error);
+        } finally {
+            setAddingProductId(null);
+        }
 	};
 
     return (
@@ -59,11 +64,10 @@ export default function ProductsList({ products, onClick }: IProductsList) {
                                     <div className={styles.two}>
                                         <button
                                             onClick={() => {
-                                                addCartProductService(products[index].id)
-                                                handleClick()
+                                                handleClick(products[index].id);
                                             }}
                                             className={styles.buttonAdd}>
-                                            {'Agregar al Carrito'}
+                                            {addingProductId === products[index].id ? 'Agregando...' : 'Agregar al Carrito'}
                                         </button>
                                     </div>
                                 </div>

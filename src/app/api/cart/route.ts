@@ -26,7 +26,9 @@ export async function POST(request: NextRequest) {
 
             if(!product) return NextResponse.json({ message: 'Producto no encontrado' }, { status: 404 });
 
-            return NextResponse.json({ message: product }, { status: 200 });
+            const cart = getCart();
+
+            return NextResponse.json({ results: cart }, { status: 200 });
         }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

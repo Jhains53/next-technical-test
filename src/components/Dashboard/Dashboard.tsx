@@ -4,7 +4,7 @@ import ProductsList from '../ProductsList/ProductsList';
 import ShopingCart from '../ShopingCart/ShopingCart';
 import { GetProductListService } from '@/services/products.service';
 import IProducts from '@/interface/products';
-import { cleanCartProductService, GetCartProductService } from '@/services/cart.service';
+import { addCartProductService, cleanCartProductService, GetCartProductService } from '@/services/cart.service';
 
 import styles from './dashboard.module.scss';
 
@@ -32,8 +32,17 @@ export default function Dashboard() {
 
     async function cleanCart() {
         try {
-            cleanCartProductService();
-            fetchCart();
+            const data = await cleanCartProductService();
+            setCartProducts(data);
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function addCart(id: number) {
+        try {
+            const data = await addCartProductService(id);
+            setCartProducts(data);
         }catch (error) {
             console.log(error);
         }
@@ -45,7 +54,7 @@ export default function Dashboard() {
         }, []);
     return (
         <div className={styles.container}>
-            <ProductsList products={products} onClick={fetchCart} />
+            <ProductsList products={products} onClick={addCart} />
             <ShopingCart cartProducts={cartProducts} onClick={cleanCart} />
         </div>
     );

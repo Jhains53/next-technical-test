@@ -1,3 +1,5 @@
+'use client';
+import { useState } from 'react';
 import IProducts from '@/interface/products';
 
 import styles from './shopin-cart.module.scss';
@@ -8,9 +10,14 @@ interface IShopinCart {
 }
 
 export default function ShopingCart({ cartProducts, onClick } : IShopinCart){
-    const handleClick = () => {
-		if (onClick) {
-			onClick();
+    const [isCleaning, setIsCleaning] = useState(false);
+    
+    const handleClick = async () => {
+		setIsCleaning(true);
+		try {
+			await Promise.resolve(onClick());
+		} finally {
+			setIsCleaning(false);
 		}
 	};
 
@@ -23,13 +30,13 @@ export default function ShopingCart({ cartProducts, onClick } : IShopinCart){
             <div className={styles.title}>
                 <p>{'Carrito de compras'}</p>
                 <button onClick={() => {handleClick()}}>
-                    {'Limpiar'}
+                    {isCleaning ? 'Limpiando...' : 'Limpiar'}
                 </button>
             </div>
             <hr />
             <br />
             <div className={styles.section}>
-                {!cartProducts? (<NotFound/>) : 
+                {cartProducts.length === 0? (<NotFound/>) : 
                 (<div className={styles.list}>
                 {cartProducts.map(
                     (
