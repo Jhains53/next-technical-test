@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addToCardSchema } from '@/app/schemas/cart.schema';
-import { addToCart, getCart } from '@/app/functions/cart';
+import { addToCardSchema, CartSchema } from '@/schemas/cart.schema';
+import { addToCart, getCart } from '@/functions/cart';
+import { SafeParseReturnType } from 'zod';
 
 export async function GET() {
     const cart = getCart();
 
-    if (cart.length === 0) return NextResponse.json({ message: 'El carrito esta vacio' }, { status: 200 });
+    if (cart.length === 0 || cart === null) return NextResponse.json({ message: 'El carrito esta vacio' }, { status: 200 });
 
-    return NextResponse.json({ cart }, { status: 200 } );
+    return NextResponse.json({ results: cart }, { status: 200 } );
 }
 
 export async function POST(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     try {
 
-        const result = addToCardSchema.safeParse({ id });
+        const result: SafeParseReturnType<CartSchema, CartSchema> = addToCardSchema.safeParse({ id });
 
         if (!result.success) {
             return NextResponse.json({ message: result.error.issues }, { status: 400 });
@@ -23,14 +24,15 @@ export async function POST(request: NextRequest) {
 
             const product = addToCart(id);
 
-            if(!product) return NextResponse.json({ message: 'Producto no encontrado' }, { status: 400 });
+            if(!product) return NextResponse.json({ message: 'Producto no encontrado' }, { status: 404 });
 
             return NextResponse.json({ message: product }, { status: 200 });
         }
 
-    } catch (error: unknown) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
         return NextResponse.json(
-            { message: 'Error al añadir el producto'},
+            { message: `Error al añadir el producto (${error.message})`},
             { status: 500}
         );
     }

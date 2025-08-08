@@ -6,3 +6,5 @@ export const addToCardSchema = z.object({
         invalid_type_error: 'The ID must be a number'
     })
 });
+
+export type CartSchema = z.infer<typeof addToCardSchema>;
